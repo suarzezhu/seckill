@@ -22,10 +22,13 @@ public class SeckillExecution {
 //    秒杀失败
 
 
-    public SeckillExecution(long seckillId, int state, String stateInfo) {
-        this.seckillId = seckillId;
-        this.state = state;
-        this.stateInfo = stateInfo;
+
+
+    public SeckillExecution(Long seckillId, SeckillStatEnum statEnum) {
+        this.seckillId=seckillId;
+        this.state=state;
+        this.stateInfo=stateInfo;
+
     }
 
     public long getSeckillId() {

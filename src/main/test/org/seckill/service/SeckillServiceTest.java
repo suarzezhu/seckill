@@ -1,5 +1,9 @@
 package org.seckill.service;
-
+/***
+ * create by zhu
+ * 2018
+ * gan
+ */
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.seckill.dto.Exposer;
@@ -52,6 +56,7 @@ public class SeckillServiceTest {
     }
     /***
      * 上述方法可以结合成一个逻辑流程，为的是执行秒杀不报错
+     * 在此我就不再累赘
      */
 
 }

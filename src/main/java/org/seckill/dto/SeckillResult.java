@@ -4,7 +4,7 @@ package org.seckill.dto;
  * 2018
  * gan
  */
-
+//封装json结果 ，所有的ajax请求的返回类型
 public class SeckillResult<T> {
     //请求是否成功
     private boolean success;
