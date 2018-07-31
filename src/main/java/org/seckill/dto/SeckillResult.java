@@ -1,8 +1,9 @@
 package org.seckill.dto;
-/***
- * create by zhu
+
+/**
+ * @author  zhu
  * 2018
- * gan
+ * @param <T>
  */
 //封装json结果 ，所有的ajax请求的返回类型
 public class SeckillResult<T> {

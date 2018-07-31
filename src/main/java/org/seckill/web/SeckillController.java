@@ -23,18 +23,36 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/seckill")//restful的接口风格：url:/模块/资源/{id}/细分/   seckill/list
+/***
+ *@author zhu
+ */
+
 public class SeckillController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private SeckillService seckillService;
+
+    /**
+     *
+     * @param model
+     * @return
+     * 通过get请求获得列表页，在地址栏输出即可
+     */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
-        //获取列表页
         List<Seckill> list = seckillService.getSeckillList();
         model.addAttribute("list", list);
-        //list.jsp+model=ModelAndView
-        return "/list";//web-inf/jsp/"list".jsp
+        //list.jsp+model=ModelAndView,web-inf/jsp/"list".jsp
+        return "/list";
     }
+
+    /**
+     *
+     * @param seckillId
+     * @param model
+     * @return
+     * 获得详情页
+     */
     @RequestMapping(value = "{seckillId}/detail", method = RequestMethod.GET)
     public String detail(@PathVariable("seckillId") Long seckillId, Model model) {
         if (seckillId == null) {
@@ -47,11 +65,18 @@ public class SeckillController {
         model.addAttribute("seckill", seckill);
         return "detail";
     }
-    //ajax json
-    @RequestMapping(value = "/{seckillId}/exposer", method = RequestMethod.POST,
+
+    /**
+     * @author zhu
+     * @param seckillId
+     * @return
+     * 暴露秒杀接口，与js通信 ，封装ajax请求
+     */
+    @RequestMapping(value = "/{seckillId}/exposer",
+            method = RequestMethod.POST,
             produces = {"application/json;charset=UTF-8"})
     @ResponseBody
-    public SeckillResult<Exposer> exposer(Long seckillId) {
+    public SeckillResult<Exposer> exposer(@PathVariable Long seckillId) {
         SeckillResult<Exposer> result;
         try {
             Exposer exposer = seckillService.exportSeckillUrl(seckillId);
@@ -62,6 +87,15 @@ public class SeckillController {
         }
         return result;
     }
+
+    /**
+     *
+     * @param seckillId
+     * @param md5
+     * @param userPhone
+     * @return
+     * 执行秒杀的控制，后期与js通信
+     */
     @RequestMapping(value = "/{seckillId}/{md5}/execution",
             method = RequestMethod.POST,
             produces = {"application/json;charset=UTF-8"})
@@ -86,11 +120,19 @@ public class SeckillController {
             return new SeckillResult<SeckillExecution>(true, execution);
         }
     }
-    //获取系统时间
-    @RequestMapping(value = "/time/now", method = RequestMethod.GET)
+
+    /**
+     *
+     * @return
+     * 获取当前时间 与封装时间的json
+     */
+    @RequestMapping(value = "/time/now", method = RequestMethod.GET,
+            produces = {"application/json;charset=UTF-8"}
+    )
     @ResponseBody
     public SeckillResult<Long> time() {
         Date now = new Date();
-        return new SeckillResult<Long>(true, now.getTime());
+        SeckillResult<Long> result = new SeckillResult<Long>(true, now.getTime());
+return  result;
     }
 }

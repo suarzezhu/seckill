@@ -13,6 +13,12 @@ public class Exposer {
 //    秒杀结束时间
     private long end;
 
+    /**
+     * dto层是web层和service层的数据通信
+     * @param exposed
+     * @param md5
+     * @param seckillId
+     */
     public Exposer(boolean exposed, String md5, long seckillId) {
         this.exposed = exposed;
         this.md5 = md5;
